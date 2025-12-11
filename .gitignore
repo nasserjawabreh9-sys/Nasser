@@ -1,0 +1,27 @@
+# Python venv & cache
+.venv/
+env/
+venv/
+__pycache__/
+*.pyc
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.npm/
+.exports_tmp/
+
+# Logs
+*.log
+
+# Workspace artifacts
+workspace/out/
+workspace/snippets/
+workspace/scripts/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
