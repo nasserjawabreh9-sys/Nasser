@@ -1,0 +1,8 @@
+{
+  "room_id": "9001",
+  "title": "Core Room 9001",
+  "messages": [
+    { "role": "system", "text": "Rooms demo seed loaded." },
+    { "role": "user", "text": "Create rooms, persist messages, wire AI stub." }
+  ]
+}

@@ -1,3 +1,18 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="${1:-$HOME/station_root}"
+cd "$ROOT"
+
+TARGET="backend/app/main.py"
+[ -f "$TARGET" ] || { echo "ERROR: missing $TARGET"; exit 2; }
+
+TS="$(date +%Y%m%d_%H%M%S)"
+cp -a "$TARGET" "${TARGET}.bak_${TS}"
+
+echo ">>> Patching: $TARGET (backup: ${TARGET}.bak_${TS})"
+
+cat > "$TARGET" <<'PY'
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -96,3 +111,7 @@ for r in [
     agent,
 ]:
     _include(r)
+PY
+
+echo ">>> Patch written."
+echo ">>> NOTE: If your project uses a different entrypoint than app.main:app, update run_backend.sh accordingly."
