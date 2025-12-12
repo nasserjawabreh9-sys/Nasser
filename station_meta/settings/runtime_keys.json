@@ -1,0 +1,14 @@
+{
+  "keys": {
+    "openai_api_key": "",
+    "github_token": "",
+    "render_api_key": "",
+    "google_api_key": "",
+    "tts_key": "",
+    "ocr_key": "",
+    "webhooks_url": "",
+    "whatsapp_token": "",
+    "email_smtp": "",
+    "edit_mode_key": "1234"
+  }
+}

@@ -1,6 +1,9 @@
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.routing import Route
+from app.routes import ops_run_cmd
+from app.routes import loop
+from app.routes import settings
 from app.routes import senses_plus
 from app.routes import ops_exec
 from app.routes import agent
@@ -13,6 +16,12 @@ async def health(request):
     return JSONResponse({"ok": True, "service": "station-backend", "engine": "starlette"})
 
 routes = [
+    *ops_run_cmd.routes,
+
+    *loop.routes,
+
+    *settings.routes,
+
     *senses_plus.routes,
 
     *ops_exec.routes,
