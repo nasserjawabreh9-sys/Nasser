@@ -1,6 +1,11 @@
 {
-  "version": "0.1.0",
-  "notes": "bindings snapshot placeholder",
-  "backend": {"port": 8000, "health": "/health"},
-  "frontend": {"dev_port": 5173}
+  "version": "1.0.0",
+  "root": "/data/data/com.termux/files/home/station_root",
+  "backend_dir": "/data/data/com.termux/files/home/station_root/backend",
+  "frontend_dir": "/data/data/com.termux/files/home/station_root/frontend",
+  "meta_dir": "/data/data/com.termux/files/home/station_root/station_meta",
+  "ops_dir": "/data/data/com.termux/files/home/station_root/scripts/ops",
+  "guards_dir": "/data/data/com.termux/files/home/station_root/scripts/guards",
+  "rooms_dir": "/data/data/com.termux/files/home/station_root/scripts/rooms",
+  "tree_authority_dir": "/data/data/com.termux/files/home/station_root/scripts/tree_authority"
 }

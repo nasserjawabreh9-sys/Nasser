@@ -1,0 +1,1 @@
+{"room":"tree_authority","scope":"tree_update + bindings + stamps + broadcast","outputs":["station_meta/tree/*","station_meta/bindings/bindings.json"]}

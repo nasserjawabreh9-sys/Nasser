@@ -1,0 +1,1 @@
+{"room":"backend","scope":"backend skeleton + health endpoint + safe deps","outputs":["backend/app/*","backend/requirements.txt"]}

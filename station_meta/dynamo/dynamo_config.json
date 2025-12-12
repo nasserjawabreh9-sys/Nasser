@@ -1,11 +1,6 @@
 {
-  "version": "0.1.0",
-  "modes": [
-    "TRIAL-1",
-    "TRIAL-2",
-    "TRIAL-3",
-    "PROD"
-  ],
+  "version": "1.0.0",
+  "modes": ["TRIAL-1","TRIAL-2","TRIAL-3","PROD"],
   "default_root_id": 1000,
   "event_log": "station_meta/dynamo/events.jsonl",
   "lock_dir": "station_meta/locks",
@@ -14,119 +9,17 @@
   "lease_seconds": 120,
   "pipelines": {
     "bootstrap_validate": [
-      {
-        "name": "tree_update",
-        "cmd": "bash scripts/tree_authority/tree_update.sh"
-      },
-      {
-        "name": "broadcast",
-        "cmd": "bash scripts/tree_authority/tree_broadcast.sh"
-      }
-    ],
-    "termux_env_prepare_backend": [
-      {
-        "name": "venv_create",
-        "cmd": "bash -lc 'cd backend && python -m venv .venv'"
-      },
-      {
-        "name": "pip_upgrade",
-        "cmd": "bash -lc 'cd backend && source .venv/bin/activate && pip install --upgrade pip'"
-      },
-      {
-        "name": "pip_install",
-        "cmd": "bash -lc 'cd backend && source .venv/bin/activate && pip install -r requirements.txt'"
-      }
-    ],
-    "backend_health_check": [
-      {
-        "name": "start_backend_bg",
-        "cmd": "bash -lc 'cd backend && source .venv/bin/activate && (nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 > ../station_logs/backend.log 2>&1 & echo $! > ../station_meta/dynamo/backend.pid)'"
-      },
-      {
-        "name": "health",
-        "cmd": "bash -lc 'curl -sS http://127.0.0.1:8000/health | cat'"
-      }
-    ],
-    "frontend_build_check": [
-      {
-        "name": "frontend_sanity",
-        "cmd": "bash -lc 'test -f frontend/package.json && echo FRONTEND_OK'"
-      },
-      {
-        "name": "api_client_sanity",
-        "cmd": "bash -lc 'test -f frontend/src/api/station_api.ts && echo API_CLIENT_OK'"
-      }
-    ],
-    "stage_only": [
-      {
-        "name": "noop",
-        "cmd": "bash -lc \"echo STAGE_ONLY\""
-      }
-    ],
-    "status_snapshot": [
-      {
-        "name": "snapshot",
-        "cmd": "python scripts/ops/status_snapshot.py"
-      }
-    ],
-    "agent_validate": [
-      {
-        "name": "rooms_broadcast",
-        "cmd": "bash scripts/rooms/rooms_broadcast.sh"
-      },
-      {
-        "name": "agent_files_check",
-        "cmd": "bash -lc 'test -f station_meta/concurrency/rooms.json && test -f scripts/ops/dynamo.py && echo OK'"
-      },
-      {
-        "name": "agent_python_smoke",
-        "cmd": "bash -lc 'python -c \"import json,os; print(\\\"agent_smoke_ok\\\")\"'"
-      },
-      {
-        "name": "integrate_report",
-        "cmd": "bash scripts/ops/integrate_report.sh"
-      }
+      {"name":"tree_update","cmd":"bash scripts/tree_authority/tree_update.sh"},
+      {"name":"tree_broadcast","cmd":"bash scripts/tree_authority/tree_broadcast.sh"}
     ],
     "preflight_guards": [
-      {
-        "name": "guard_tree_fresh",
-        "cmd": "bash scripts/guards/guard_tree_fresh.sh"
-      },
-      {
-        "name": "rooms_broadcast",
-        "cmd": "bash scripts/rooms/rooms_broadcast.sh"
-      },
-      {
-        "name": "guard_rooms_broadcast",
-        "cmd": "bash scripts/guards/guard_rooms_broadcast.sh"
-      },
-      {
-        "name": "guard_termux_safe_deps",
-        "cmd": "bash scripts/guards/guard_termux_safe_deps.sh"
-      }
+      {"name":"guard_tree_fresh","cmd":"bash scripts/guards/guard_tree_fresh.sh"},
+      {"name":"rooms_broadcast","cmd":"bash scripts/rooms/rooms_broadcast.sh"},
+      {"name":"guard_rooms_broadcast","cmd":"bash scripts/guards/guard_rooms_broadcast.sh"},
+      {"name":"guard_termux_safe_deps","cmd":"bash scripts/guards/guard_termux_safe_deps.sh"}
     ],
     "plan_progression": [
-      {
-        "name": "guard_tree_fresh",
-        "cmd": "bash scripts/guards/guard_tree_fresh.sh"
-      },
-      {
-        "name": "rooms_broadcast",
-        "cmd": "bash scripts/rooms/rooms_broadcast.sh"
-      },
-      {
-        "name": "guard_rooms_broadcast",
-        "cmd": "bash scripts/guards/guard_rooms_broadcast.sh"
-      },
-      {
-        "name": "guard_termux_safe_deps",
-        "cmd": "bash scripts/guards/guard_termux_safe_deps.sh"
-      },
-      {
-        "name": "integrate_report",
-        "cmd": "bash scripts/ops/integrate_report.sh"
-      }
+      {"name":"integrate_report","cmd":"bash scripts/ops/integrate_report.sh"}
     ]
-  },
-  "preflight": "bash scripts/ops/run_guards.sh"
+  }
 }

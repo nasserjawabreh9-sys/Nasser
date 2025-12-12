@@ -1,33 +1,40 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
-
-ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+ROOT="$HOME/station_root"
 cd "$ROOT"
 
-mkdir -p station_meta/tree station_meta/bindings
+OUT="$ROOT/station_meta/tree/tree_paths.txt"
+BIND="$ROOT/station_meta/bindings/bindings.json"
 
-# Simple tree snapshot (Termux-safe)
-# Exclude venv/node_modules/.git to keep it readable
-find . -maxdepth 5 \
-  -path './.git' -prune -o \
-  -path './backend/.venv' -prune -o \
-  -path './frontend/node_modules' -prune -o \
-  -path './frontend/dist' -prune -o \
-  -print \
-| sed 's|^\./||' \
-| sort > station_meta/tree/tree_paths.txt
+# Build tree list (skip heavy dirs)
+find . -type f \
+  -not -path "./.git/*" \
+  -not -path "./backend/.venv/*" \
+  -not -path "./frontend/node_modules/*" \
+  -not -path "./station_meta/locks/*" \
+  -not -path "./station_logs/*" \
+  | sed 's|^\./||' | sort > "$OUT"
 
-# Minimal bindings snapshot (fill later if needed)
-cat > station_meta/bindings/bindings.json << 'JSON'
-{
-  "version": "0.1.0",
-  "notes": "bindings snapshot placeholder",
-  "backend": {"port": 8000, "health": "/health"},
-  "frontend": {"dev_port": 5173}
+# Minimal bindings truth (extend later)
+python - << 'PY'
+import json, os
+root=os.path.expanduser("~/station_root")
+p=os.path.join(root,"station_meta","bindings","bindings.json")
+data={
+  "version":"1.0.0",
+  "root": root,
+  "backend_dir": os.path.join(root,"backend"),
+  "frontend_dir": os.path.join(root,"frontend"),
+  "meta_dir": os.path.join(root,"station_meta"),
+  "ops_dir": os.path.join(root,"scripts","ops"),
+  "guards_dir": os.path.join(root,"scripts","guards"),
+  "rooms_dir": os.path.join(root,"scripts","rooms"),
+  "tree_authority_dir": os.path.join(root,"scripts","tree_authority")
 }
-JSON
+os.makedirs(os.path.dirname(p), exist_ok=True)
+json.dump(data, open(p,"w",encoding="utf-8"), ensure_ascii=False, indent=2)
+print(">>> [tree_update] wrote station_meta/tree/tree_paths.txt and station_meta/bindings/bindings.json")
+PY
 
-echo ">>> [tree_update] wrote station_meta/tree/tree_paths.txt and station_meta/bindings/bindings.json"
-
-# [R1810] stamp after tree update
 bash scripts/tree_authority/tree_stamp.sh
+echo ">>> [tree_update] stamp updated"

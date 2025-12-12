@@ -1,0 +1,1 @@
+{"room":"dynamo_ops","scope":"pipelines + locks + events + stage push","outputs":["scripts/ops/dynamo.py","station_meta/dynamo/dynamo_config.json","station_meta/dynamo/events.jsonl"]}

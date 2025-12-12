@@ -1,10 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
-
 ROOT="$HOME/station_root"
 POL="$ROOT/station_meta/guards/policy.json"
 REQF="$ROOT/backend/requirements.txt"
-
 [ -f "$POL" ] || { echo "GUARD_POLICY_MISSING"; exit 30; }
 [ -f "$REQF" ] || { echo "BACKEND_REQUIREMENTS_MISSING"; exit 31; }
 
@@ -28,5 +26,4 @@ if [ "$FOUND" -ne 0 ]; then
   echo "Action: remove blocked deps OR pin Termux-safe alternatives."
   exit 32
 fi
-
 echo ">>> [guard_termux_safe_deps] OK"

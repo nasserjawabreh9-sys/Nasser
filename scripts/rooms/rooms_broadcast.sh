@@ -1,31 +1,26 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
-
 ROOT="$HOME/station_root"
 TS="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+DIR="$ROOT/station_meta/rooms"
+mkdir -p "$DIR"
 
-ROOMS_JSON="$ROOT/station_meta/concurrency/rooms.json"
-TREE="$ROOT/station_meta/tree/tree_paths.txt"
-BIND="$ROOT/station_meta/bindings/bindings.json"
+# 5 Rooms (can grow later)
+cat > "$DIR/room_01_tree_authority.json" << 'JSON'
+{"room":"tree_authority","scope":"tree_update + bindings + stamps + broadcast","outputs":["station_meta/tree/*","station_meta/bindings/bindings.json"]}
+JSON
+cat > "$DIR/room_02_guards.json" << 'JSON'
+{"room":"guards","scope":"block bad deps + require tree fresh + require rooms broadcast + root id discipline","outputs":["scripts/guards/*","station_meta/guards/policy.json"]}
+JSON
+cat > "$DIR/room_03_dynamo_ops.json" << 'JSON'
+{"room":"dynamo_ops","scope":"pipelines + locks + events + stage push","outputs":["scripts/ops/dynamo.py","station_meta/dynamo/dynamo_config.json","station_meta/dynamo/events.jsonl"]}
+JSON
+cat > "$DIR/room_04_backend.json" << 'JSON'
+{"room":"backend","scope":"backend skeleton + health endpoint + safe deps","outputs":["backend/app/*","backend/requirements.txt"]}
+JSON
+cat > "$DIR/room_05_frontend.json" << 'JSON'
+{"room":"frontend","scope":"frontend skeleton + api client + official UI later","outputs":["frontend/src/*"]}
+JSON
 
-[ -f "$ROOMS_JSON" ] || { echo "rooms.json missing"; exit 2; }
-[ -f "$TREE" ] || { echo "tree_paths.txt missing. run bootstrap_validate first"; exit 3; }
-[ -f "$BIND" ] || { echo "bindings.json missing. run bootstrap_validate first"; exit 4; }
-
-python - << 'PY'
-import json, os, shutil
-ROOT=os.path.expanduser("~/station_root")
-rooms=json.load(open(os.path.join(ROOT,"station_meta","concurrency","rooms.json"),"r",encoding="utf-8"))["rooms"]
-src_tree=os.path.join(ROOT,"station_meta","tree","tree_paths.txt")
-src_bind=os.path.join(ROOT,"station_meta","bindings","bindings.json")
-
-for rk in rooms.keys():
-    dst=os.path.join(ROOT,"station_meta","rooms",rk)
-    os.makedirs(dst, exist_ok=True)
-    shutil.copy2(src_tree, os.path.join(dst,"tree_paths.txt"))
-    shutil.copy2(src_bind, os.path.join(dst,"bindings.json"))
-print(">>> [rooms_broadcast] OK rooms_count=", len(rooms))
-PY
-
-echo "ts=${TS}" > "$ROOT/station_meta/rooms/last_broadcast.txt"
-echo ">>> [rooms_broadcast] wrote station_meta/rooms/* + last_broadcast.txt"
+echo "$TS" > "$DIR/last_broadcast.txt"
+echo ">>> [rooms_broadcast] OK rooms_count=5"

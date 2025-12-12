@@ -1,9 +1,13 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
-
 ROOT="$HOME/station_root"
 POL="$ROOT/station_meta/guards/policy.json"
+TREE="$ROOT/station_meta/tree/tree_paths.txt"
+STAMP="$ROOT/station_meta/tree/last_tree_update_epoch.txt"
+
 [ -f "$POL" ] || { echo "GUARD_POLICY_MISSING"; exit 10; }
+[ -f "$TREE" ] || { echo "GUARD_TREE_MISSING: run tree_update"; exit 11; }
+[ -f "$STAMP" ] || { echo "GUARD_STAMP_MISSING: run tree_update"; exit 12; }
 
 REQ="$(python - << 'PY'
 import json,os
@@ -12,20 +16,13 @@ print(int(json.load(open(p,"r",encoding="utf-8"))["require_tree_fresh_seconds"])
 PY
 )"
 
-STAMP_E="$ROOT/station_meta/tree/last_tree_update_epoch.txt"
-TREE_P="$ROOT/station_meta/tree/tree_paths.txt"
-
-[ -f "$TREE_P" ] || { echo "GUARD_TREE_MISSING: run bootstrap_validate"; exit 11; }
-[ -f "$STAMP_E" ] || { echo "GUARD_STAMP_MISSING: run bootstrap_validate"; exit 12; }
-
 NOW="$(date -u +%s)"
-LAST="$(cat "$STAMP_E" | tr -d '\r\n' || true)"
-[ -n "$LAST" ] || { echo "GUARD_STAMP_EMPTY"; exit 13; }
-
+LAST="$(cat "$STAMP" | tr -d '\r\n')"
 AGE=$(( NOW - LAST ))
+
 if [ "$AGE" -gt "$REQ" ]; then
   echo "GUARD_TREE_STALE age_seconds=$AGE limit=$REQ"
-  echo "Action: run => bash scripts/ops/st.sh dynamo start PROD bootstrap_validate 1000"
+  echo "Action: bash scripts/tree_authority/tree_update.sh && bash scripts/tree_authority/tree_broadcast.sh"
   exit 14
 fi
 

@@ -1,8 +1,8 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "require_tree_fresh_seconds": 600,
   "require_rooms_broadcast": true,
   "block_heavy_build_deps": true,
   "blocked_markers": ["maturin", "rust", "pydantic-core", "watchfiles"],
-  "allowed_modes": ["TRIAL-1", "TRIAL-2", "TRIAL-3", "PROD"]
+  "allowed_modes": ["TRIAL-1","TRIAL-2","TRIAL-3","PROD"]
 }

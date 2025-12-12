@@ -1,8 +1,7 @@
 STATION TREE BROADCAST
-ts=2025-12-12T05:19:37Z
-paths_count=270
+ts=2025-12-12T05:53:10Z
+paths_count=215
 head:
-.
 .gitignore
 R1100_bootstrap_arch_rooms_guards.sh
 R1200_enable_guards_queue_concurrency.sh
@@ -13,12 +12,23 @@ R1600_concurrency_rooms_mergegate.sh
 R1700_rooms_pipelines_broadcast_integrate.sh
 R1800_guards_autopush_roomsync.sh
 R1810_fix_stamp_and_lock.sh
+R9000_ONE_SHOT_BUILD_AND_PUSH.sh
 README.md
 README_RUNBOOK.md
-backend
 backend.log
 backend/SH
-backend/__pycache__
 backend/__pycache__/main.cpython-312.pyc
-backend/app
 backend/app/__init__.py
+backend/app/__pycache__/__init__.cpython-312.pyc
+backend/app/__pycache__/main.cpython-312.pyc
+backend/app/main.py
+backend/app/ro
+backend/app/routes/__init__.py
+backend/app/routes/__pycache__/__init__.cpython-312.pyc
+backend/app/routes/__pycache__/ops_git.cpython-312.pyc
+backend/app/routes/__pycache__/ops_openai_test.cpython-312.pyc
+backend/app/routes/__pycache__/uui_config.cpython-312.pyc
+backend/app/routes/ops_git.py
+backend/app/routes/ops_openai_test.py
+backend/app/routes/uui_config.py
+backend/app_old_20251211_233357/__init__.py

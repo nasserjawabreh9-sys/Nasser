@@ -1,0 +1,68 @@
+INTEGRATE_REPORT ts=2025-12-12T05:53:11Z
+
+[TREE]
+total 27
+drwx------.  2 u0_a336 u0_a336 3452 Dec 12 08:19 .
+drwx------. 15 u0_a336 u0_a336 3452 Dec 12 08:12 ..
+-rw-------.  1 u0_a336 u0_a336 1112 Dec 12 08:53 broadcast.txt
+-rw-------.  1 u0_a336 u0_a336   11 Dec 12 08:53 last_tree_update_epoch.txt
+-rw-------.  1 u0_a336 u0_a336   21 Dec 12 08:53 last_tree_update_utc.txt
+-rw-------.  1 u0_a336 u0_a336 7415 Dec 12 08:53 tree_paths.txt
+
+[ROOMS]
+total 53
+drwx------.  7 u0_a336 u0_a336 3452 Dec 12 08:53 .
+drwx------. 15 u0_a336 u0_a336 3452 Dec 12 08:12 ..
+drwx------.  2 u0_a336 u0_a336 3452 Dec 12 08:12 R1_TREE_AUTHORITY
+drwx------.  2 u0_a336 u0_a336 3452 Dec 12 08:12 R2_BACKEND
+drwx------.  2 u0_a336 u0_a336 3452 Dec 12 08:12 R3_AI_AGENT
+drwx------.  2 u0_a336 u0_a336 3452 Dec 12 08:12 R4_FRONTEND
+drwx------.  2 u0_a336 u0_a336 3452 Dec 12 08:12 R5_OPS
+-rw-------.  1 u0_a336 u0_a336   21 Dec 12 08:53 last_broadcast.txt
+-rw-------.  1 u0_a336 u0_a336  152 Dec 12 08:53 room_01_tree_authority.json
+-rw-------.  1 u0_a336 u0_a336  176 Dec 12 08:53 room_02_guards.json
+-rw-------.  1 u0_a336 u0_a336  184 Dec 12 08:53 room_03_dynamo_ops.json
+-rw-------.  1 u0_a336 u0_a336  131 Dec 12 08:53 room_04_backend.json
+-rw-------.  1 u0_a336 u0_a336  110 Dec 12 08:53 room_05_frontend.json
+-rw-------.  1 u0_a336 u0_a336  653 Dec 12 07:48 rooms.json
+
+[GUARDS]
+total 51
+drwx------. 2 u0_a336 u0_a336 3452 Dec 12 08:15 .
+drwx------. 6 u0_a336 u0_a336 3452 Dec 12 07:48 ..
+-rwx------. 1 u0_a336 u0_a336  287 Dec 12 07:48 binding_guard.sh
+-rwx------. 1 u0_a336 u0_a336  423 Dec 12 07:48 env_guard.sh
+-rwx------. 1 u0_a336 u0_a336  104 Dec 12 08:03 guard_ops_gate.sh
+-rwx------. 1 u0_a336 u0_a336  657 Dec 12 08:53 guard_rooms_broadcast.sh
+-rwx------. 1 u0_a336 u0_a336  265 Dec 12 08:53 guard_root_id_arg.sh
+-rwx------. 1 u0_a336 u0_a336  810 Dec 12 08:53 guard_termux_safe_deps.sh
+-rwx------. 1 u0_a336 u0_a336 2215 Dec 12 08:03 guard_tree_bindings.sh
+-rwx------. 1 u0_a336 u0_a336  988 Dec 12 08:53 guard_tree_fresh.sh
+-rwx------. 1 u0_a336 u0_a336  155 Dec 12 07:48 stage_guard.sh
+-rwx------. 1 u0_a336 u0_a336  345 Dec 12 07:48 tree_guard.sh
+-rwx------. 1 u0_a336 u0_a336  643 Dec 12 08:03 update_tree_stamp.sh
+
+[DYNAMO]
+total 95
+drwx------. 2 u0_a336 u0_a336 3452 Dec 12 08:19 .
+drwx------. 6 u0_a336 u0_a336 3452 Dec 12 07:48 ..
+-rwx------. 1 u0_a336 u0_a336  191 Dec 12 08:53 autopush_by_root.sh
+-rwx------. 1 u0_a336 u0_a336 1800 Dec 12 08:03 diff_to_queue.py
+-rwx------. 1 u0_a336 u0_a336 1326 Dec 12 05:56 discover_layout.sh
+-rwx------. 1 u0_a336 u0_a336 4314 Dec 12 08:53 dynamo.py
+-rwx------. 1 u0_a336 u0_a336 7127 Dec 12 06:46 finish_backend_uui_ops.sh
+-rwx------. 1 u0_a336 u0_a336 1776 Dec 12 06:46 finish_frontend_settings_actions.sh
+-rwx------. 1 u0_a336 u0_a336  335 Dec 12 06:51 hardening.sh
+-rwx------. 1 u0_a336 u0_a336  570 Dec 12 08:53 integrate_report.sh
+-rwx------. 1 u0_a336 u0_a336 1118 Dec 12 08:06 lock_cleaner.py
+-rwx------. 1 u0_a336 u0_a336  290 Dec 12 08:19 locks_clear.sh
+-rwx------. 1 u0_a336 u0_a336  511 Dec 12 08:06 merge_gate.sh
+-rwx------. 1 u0_a336 u0_a336 1244 Dec 12 05:50 patch_repo_hygiene.sh
+-rwx------. 1 u0_a336 u0_a336 2043 Dec 12 08:03 queue_runner.py
+-rwx------. 1 u0_a336 u0_a336 3178 Dec 12 08:06 queue_runner_v2.py
+-rwx------. 1 u0_a336 u0_a336  386 Dec 12 07:51 run_guards.sh
+-rwx------. 1 u0_a336 u0_a336  360 Dec 12 06:51 self_test.sh
+-rwx------. 1 u0_a336 u0_a336 1546 Dec 12 08:53 st.sh
+-rwx------. 1 u0_a336 u0_a336  489 Dec 12 08:53 stage_commit_push.sh
+-rwx------. 1 u0_a336 u0_a336 1936 Dec 12 07:55 status_snapshot.py
+-rwx------. 1 u0_a336 u0_a336  344 Dec 12 07:55 tag_root.sh
