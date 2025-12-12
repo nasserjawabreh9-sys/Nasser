@@ -1,0 +1,6 @@
+Station Snapshot
+Time: 2025-12-12T16:04:32+03:00
+- Hardening v2 applied
+- umask=077
+- .gitignore guarded
+- Edit key enforced from env: STATION_EDIT_KEY (not written to repo)

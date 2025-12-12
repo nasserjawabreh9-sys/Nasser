@@ -60,3 +60,6 @@ station_meta/queue/locks/
 station_meta/logs/
 backend.log
 frontend.log
+station_env.sh
+.env
+frontend/.env*
