@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "max_concurrency": 2,
+  "rooms": {
+    "R1_TREE_AUTHORITY": {"lock":"room_R1_tree", "default_pipeline":"bootstrap_validate", "root_id":1000},
+    "R2_BACKEND":        {"lock":"room_R2_backend", "default_pipeline":"termux_env_prepare_backend", "root_id":2000},
+    "R3_AI_AGENT":       {"lock":"room_R3_ai", "default_pipeline":"agent_validate", "root_id":3000},
+    "R4_FRONTEND":       {"lock":"room_R4_frontend", "default_pipeline":"frontend_build_check", "root_id":4000},
+    "R5_OPS":            {"lock":"room_R5_ops", "default_pipeline":"stage_only", "root_id":5000}
+  }
+}

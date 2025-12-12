@@ -80,3 +80,60 @@ if [ "$cmd" = "queue" ]; then
   esac
   exit 0
 fi
+
+if [ "$cmd" = "locks" ]; then
+  sub="${1:-}"; shift || true
+  case "$sub" in
+    clean)
+      python scripts/ops/lock_cleaner.py
+      ;;
+    *)
+      echo "Usage: st locks clean"
+      exit 1
+      ;;
+  esac
+  exit 0
+fi
+
+if [ "$cmd" = "queue2" ]; then
+  sub="${1:-}"; shift || true
+  case "$sub" in
+    run)
+      export ST_MODE="${1:-PROD}"
+      python scripts/ops/queue_runner_v2.py
+      ;;
+    *)
+      echo "Usage: st queue2 run <MODE>"
+      exit 1
+      ;;
+  esac
+  exit 0
+fi
+
+if [ "$cmd" = "merge" ]; then
+  sub="${1:-}"; shift || true
+  case "$sub" in
+    gate)
+      bash scripts/ops/merge_gate.sh
+      ;;
+    *)
+      echo "Usage: st merge gate"
+      exit 1
+      ;;
+  esac
+  exit 0
+fi
+
+if [ "$cmd" = "rooms" ]; then
+  sub="${1:-}"; shift || true
+  case "$sub" in
+    show)
+      cat station_meta/concurrency/rooms.json
+      ;;
+    *)
+      echo "Usage: st rooms show"
+      exit 1
+      ;;
+  esac
+  exit 0
+fi
