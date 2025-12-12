@@ -17,3 +17,6 @@ count="$(wc -l < station_meta/tree/tree_paths.txt 2>/dev/null || echo 0)"
 
 cat "$out"
 echo ">>> [tree_broadcast] wrote $out"
+
+# --- Guard stamp update (truth) ---
+bash scripts/guards/update_tree_stamp.sh || true
