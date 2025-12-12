@@ -149,7 +149,7 @@ def main():
 
     rid = root_id if root_id is not None else int(cfg["default_root_id"])
     print(f">>> [DYNAMO] mode={mode} root_id={rid} pipeline={pipeline}")
-    run_pipeline(cfg, pipeline, mode, rid)
+    os.system(cfg.get("preflight","true")); run_pipeline(cfg, pipeline, mode, rid)
     print(">>> [DYNAMO] DONE")
 
 if __name__ == "__main__":
