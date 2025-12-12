@@ -27,7 +27,7 @@ const emptyKeys: Keys = {
   email_smtp: "",
   github_repo: "",
   render_api_key: "",
-  edit_mode_key: "1234"
+  edit_mode_key: "1234",
 };
 
 export default function Settings() {
@@ -38,7 +38,9 @@ export default function Settings() {
   useEffect(() => {
     const raw = localStorage.getItem(LS_KEY);
     if (raw) {
-      try { setKeys({ ...emptyKeys, ...JSON.parse(raw) }); } catch {}
+      try {
+        setKeys({ ...emptyKeys, ...JSON.parse(raw) });
+      } catch {}
     }
   }, []);
 
@@ -46,26 +48,48 @@ export default function Settings() {
     localStorage.setItem(LS_KEY, JSON.stringify(keys));
   }, [keys]);
 
-  const fields = useMemo(() => ([
-    ["openai_api_key", "OpenAI API Key"],
-    ["github_token", "GitHub Token"],
-    ["tts_key", "TTS Key"],
-    ["webhooks_url", "Webhooks URL"],
-    ["ocr_key", "OCR Key"],
-    ["web_integration_key", "Web Integration Key"],
-    ["whatsapp_key", "WhatsApp Key"],
-    ["email_smtp", "Email SMTP (string)"],
-    ["github_repo", "GitHub Repo (owner/repo)"],
-    ["render_api_key", "Render API Key"],
-    ["edit_mode_key", "Edit Mode Key (required for Ops)"]
-  ] as const), []);
+  const fields = useMemo(
+    () =>
+      ([
+        ["openai_api_key", "OpenAI API Key"],
+        ["github_token", "GitHub Token"],
+        ["tts_key", "TTS Key"],
+        ["webhooks_url", "Webhooks URL"],
+        ["ocr_key", "OCR Key"],
+        ["web_integration_key", "Web Integration Key"],
+        ["whatsapp_key", "WhatsApp Key"],
+        ["email_smtp", "Email SMTP (string)"],
+        ["github_repo", "GitHub Repo (owner/repo)"],
+        ["render_api_key", "Render API Key"],
+        ["edit_mode_key", "Edit Mode Key (required for Ops)"],
+      ] as const),
+    []
+  );
+
+  async function saveToBackend() {
+    setStatus("Saving to backend...");
+    setGitOut("");
+    try {
+      const res = await fetch("/api/config/uui", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ keys }),
+      });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(j?.error || String(res.status));
+      setGitOut(JSON.stringify(j, null, 2));
+      setStatus("Saved to backend OK.");
+    } catch (e: any) {
+      setStatus("Save failed: " + (e?.message || "unknown"));
+    }
+  }
 
   async function gitStatus() {
     setStatus("Git status...");
     setGitOut("");
     try {
       const res = await fetch("/api/ops/git/status", {
-        headers: { "X-Edit-Key": keys.edit_mode_key || "" }
+        headers: { "X-Edit-Key": keys.edit_mode_key || "" },
       });
       const j = await res.json();
       if (!res.ok) throw new Error(j?.error || String(res.status));
@@ -88,14 +112,14 @@ export default function Settings() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Edit-Key": keys.edit_mode_key || ""
+          "X-Edit-Key": keys.edit_mode_key || "",
         },
-        body: JSON.stringify({ root_id: 1000, msg: "UI stage/commit/push", strict: "0" })
+        body: JSON.stringify({ root_id: 1000, msg: "UI stage/commit/push", strict: "0" }),
       });
       const j = await res.json();
       if (!res.ok) throw new Error(j?.error || String(res.status));
       setGitOut(j.out_tail || "(no output)");
-      setStatus(j.ok ? "Push OK." : ("Push finished with rc=" + j.rc));
+      setStatus(j.ok ? "Push OK." : "Push finished with rc=" + j.rc);
     } catch (e: any) {
       setStatus("Push failed: " + (e?.message || "unknown"));
     }
@@ -104,7 +128,7 @@ export default function Settings() {
   return (
     <div style={{ padding: 16, maxWidth: 920, margin: "0 auto" }}>
       <h2>Station Settings</h2>
-      <p>Keys are stored in LocalStorage. Ops endpoints require Edit Mode Key.</p>
+      <p>Keys are stored in LocalStorage. You can also push them to backend. Ops endpoints require Edit Mode Key.</p>
 
       <div style={{ display: "grid", gap: 12 }}>
         {fields.map(([k, label]) => (
@@ -112,26 +136,57 @@ export default function Settings() {
             <span style={{ fontWeight: 600 }}>{label}</span>
             <input
               value={(keys as any)[k]}
-              onChange={(e) => setKeys(prev => ({ ...prev, [k]: e.target.value }))}
+              onChange={(e) => setKeys((prev) => ({ ...prev, [k]: e.target.value }))}
               placeholder={label}
-              style={{ padding: 10, borderRadius: 8, border: "1px solid #333", background: "#111", color: "#eee" }}
+              style={{
+                padding: 10,
+                borderRadius: 8,
+                border: "1px solid #333",
+                background: "#111",
+                color: "#eee",
+              }}
             />
           </label>
         ))}
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 14, flexWrap: "wrap" }}>
-        <button onClick={gitStatus} style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid #444", background: "#1b1b1b", color: "#eee" }}>
+        <button
+          onClick={saveToBackend}
+          style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid #444", background: "#1b1b1b", color: "#eee" }}
+        >
+          Save to Backend
+        </button>
+
+        <button
+          onClick={gitStatus}
+          style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid #444", background: "#1b1b1b", color: "#eee" }}
+        >
           Git Status (Backend)
         </button>
-        <button onClick={gitPush} style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid #444", background: "#1b1b1b", color: "#eee" }}>
+
+        <button
+          onClick={gitPush}
+          style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid #444", background: "#1b1b1b", color: "#eee" }}
+        >
           Stage + Commit + Push (Backend)
         </button>
+
         <span style={{ opacity: 0.85, alignSelf: "center" }}>{status}</span>
       </div>
 
-      <pre style={{ marginTop: 14, padding: 12, borderRadius: 10, border: "1px solid #333", background: "#0e0e0e", color: "#ddd", whiteSpace: "pre-wrap" }}>
-        {gitOut || "Ops output will appear here."}
+      <pre
+        style={{
+          marginTop: 14,
+          padding: 12,
+          borderRadius: 10,
+          border: "1px solid #333",
+          background: "#0e0e0e",
+          color: "#ddd",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        {gitOut || "Output will appear here."}
       </pre>
     </div>
   );
