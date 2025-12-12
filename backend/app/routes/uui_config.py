@@ -1,56 +1,66 @@
 import os, json
-from starlette.requests import Request
 from starlette.responses import JSONResponse
+from starlette.requests import Request
 
-ROOT_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..")
-)
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+UUI_STORE = os.path.abspath(os.path.join(ROOT_DIR, "station_meta", "bindings", "uui_config.json"))
 
-CFG_PATH = os.path.join(
-    ROOT_DIR, "station_meta", "bindings", "uui_config.json"
-)
-
-DEFAULT_CFG = {
-    "keys": {
-        "openai_api_key": "",
-        "github_token": "",
-        "tts_key": "",
-        "webhooks_url": "",
-        "ocr_key": "",
-        "web_integration_key": "",
-        "whatsapp_key": "",
-        "email_smtp": "",
-        "github_repo": "",
-        "render_api_key": "",
-        "edit_mode_key": "1234"
-    }
+DEFAULT_KEYS = {
+    "openai_api_key": "",
+    "github_token": "",
+    "tts_key": "",
+    "webhooks_url": "",
+    "ocr_key": "",
+    "web_integration_key": "",
+    "whatsapp_key": "",
+    "email_smtp": "",
+    "github_repo": "",
+    "render_api_key": "",
+    "edit_mode_key": "1234"
 }
 
-
-def _ensure_file():
-    os.makedirs(os.path.dirname(CFG_PATH), exist_ok=True)
-    if not os.path.exists(CFG_PATH):
-        with open(CFG_PATH, "w", encoding="utf-8") as f:
-            json.dump(DEFAULT_CFG, f, indent=2)
-
-
-async def get_uui_config(request: Request):
-    _ensure_file()
+def _read_cfg():
     try:
-        with open(CFG_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        return JSONResponse(data)
-    except Exception as e:
-        return JSONResponse({"error": str(e)}, status_code=500)
+        with open(UUI_STORE, "r", encoding="utf-8") as f:
+            cfg = json.load(f)
+        keys = (cfg.get("keys") or {})
+        return {"keys": {**DEFAULT_KEYS, **keys}}
+    except Exception:
+        return {"keys": dict(DEFAULT_KEYS)}
 
+def _write_cfg(keys: dict):
+    os.makedirs(os.path.dirname(UUI_STORE), exist_ok=True)
+    cfg = {"keys": {**DEFAULT_KEYS, **(keys or {})}}
+    with open(UUI_STORE, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, ensure_ascii=False, indent=2)
+    return cfg
 
-async def post_uui_config(request: Request):
-    _ensure_file()
+def _edit_key_expected():
+    envk = (os.getenv("STATION_EDIT_KEY") or "").strip()
+    if envk:
+        return envk
+    cfg = _read_cfg()
+    k = ((cfg.get("keys") or {}).get("edit_mode_key") or "").strip()
+    return k or "1234"
+
+def _auth_ok(request: Request) -> bool:
+    got = (request.headers.get("X-Edit-Key") or "").strip()
+    return got != "" and got == _edit_key_expected()
+
+async def get_config(request: Request):
+    return JSONResponse(_read_cfg())
+
+async def set_config(request: Request):
+    # Protect writes
+    if not _auth_ok(request):
+        return JSONResponse({"error": "forbidden"}, status_code=403)
+
+    body = {}
     try:
         body = await request.json()
-        keys = body.get("keys") or {}
-        with open(CFG_PATH, "w", encoding="utf-8") as f:
-            json.dump({"keys": keys}, f, indent=2)
-        return JSONResponse({"ok": True})
-    except Exception as e:
-        return JSONResponse({"error": str(e)}, status_code=500)
+    except Exception:
+        body = {}
+
+    keys = (body.get("keys") or {})
+    cfg = _write_cfg(keys)
+    return JSONResponse({"ok": True, "keys": cfg["keys"]})
