@@ -28,3 +28,6 @@ cat > station_meta/bindings/bindings.json << 'JSON'
 JSON
 
 echo ">>> [tree_update] wrote station_meta/tree/tree_paths.txt and station_meta/bindings/bindings.json"
+
+# [R1810] stamp after tree update
+bash scripts/tree_authority/tree_stamp.sh

@@ -107,8 +107,20 @@
     ],
     "plan_progression": [
       {
-        "name": "preflight_guards",
-        "cmd": "bash -lc 'python scripts/ops/dynamo.py PROD preflight_guards 9001'"
+        "name": "guard_tree_fresh",
+        "cmd": "bash scripts/guards/guard_tree_fresh.sh"
+      },
+      {
+        "name": "rooms_broadcast",
+        "cmd": "bash scripts/rooms/rooms_broadcast.sh"
+      },
+      {
+        "name": "guard_rooms_broadcast",
+        "cmd": "bash scripts/guards/guard_rooms_broadcast.sh"
+      },
+      {
+        "name": "guard_termux_safe_deps",
+        "cmd": "bash scripts/guards/guard_termux_safe_deps.sh"
       },
       {
         "name": "integrate_report",
