@@ -8,6 +8,7 @@ R1500_guards_autodiff_queue_stopworld.sh
 R1600_concurrency_rooms_mergegate.sh
 R1700_rooms_pipelines_broadcast_integrate.sh
 R1800_guards_autopush_roomsync.sh
+R1810_fix_stamp_and_lock.sh
 README.md
 README_RUNBOOK.md
 backend
@@ -122,6 +123,7 @@ scripts/ops/finish_frontend_settings_actions.sh
 scripts/ops/hardening.sh
 scripts/ops/integrate_report.sh
 scripts/ops/lock_cleaner.py
+scripts/ops/locks_clear.sh
 scripts/ops/merge_gate.sh
 scripts/ops/patch_repo_hygiene.sh
 scripts/ops/queue_runner.py
@@ -198,6 +200,7 @@ station_meta/guards/last_tree_stamp.json
 station_meta/guards/policy.json
 station_meta/integrate
 station_meta/integrate/integrate_2025-12-12T05:12:43Z.txt
+station_meta/integrate/integrate_2025-12-12T05:16:18Z.txt
 station_meta/locks
 station_meta/locks/bindings.lock.json
 station_meta/locks/env.lock.json
@@ -229,8 +232,11 @@ station_meta/stage_reports
 station_meta/stage_reports/PROD_R1000_1765514358.json
 station_meta/stage_reports/PROD_R1000_1765516018.json
 station_meta/stage_reports/PROD_R1000_1765516363.json
+station_meta/stage_reports/PROD_R1000_1765516577.json
 station_meta/stage_reports/PROD_R3000_1765516365.json
+station_meta/stage_reports/PROD_R3000_1765516580.json
 station_meta/stage_reports/PROD_R4000_1765516367.json
+station_meta/stage_reports/PROD_R4000_1765516582.json
 station_meta/stage_reports/PROD_R5000_1765516368.json
 station_meta/stage_reports/TRIAL-1_R1000_1765506487.json
 station_meta/stage_reports/TRIAL-1_R1000_1765514295.json
