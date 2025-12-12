@@ -58,6 +58,7 @@ backend/station_loop_v3_backend.sh
 backend/touch
 backend/utils/__init__.py
 frontend.log
+frontend/.env.local
 frontend/.gitignore
 frontend/README.md
 frontend/eslint.config.js
@@ -67,6 +68,7 @@ frontend/package.json
 frontend/public/vite.svg
 frontend/src/App.css
 frontend/src/App.tsx
+frontend/src/StationConsole.tsx
 frontend/src/api/station_api.ts
 frontend/src/assets/react.svg
 frontend/src/index.css
