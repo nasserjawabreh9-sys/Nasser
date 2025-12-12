@@ -1,0 +1,6 @@
+Station Snapshot
+Time: 2025-12-12T11:21:51+03:00
+Includes:
+- uui_config.json (single source)
+- ops endpoints + self-test scripts
+- runbook

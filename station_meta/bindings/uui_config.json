@@ -11,5 +11,12 @@
     "github_repo": "",
     "render_api_key": "",
     "edit_mode_key": "1234"
+  },
+  "runtime": {
+    "offline_mode": true,
+    "llm_enabled": false
+  },
+  "notes": {
+    "single_source": "station_meta/bindings/uui_config.json"
   }
 }
