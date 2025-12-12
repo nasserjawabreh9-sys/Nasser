@@ -39,6 +39,8 @@ export default function SideBar(p: Props) {
 
       <Item k="landing" label="Landing" sub="Intro & activation" active={p.active} onNav={p.onNav} />
       <Item k="dashboard" label="Dashboard" sub="Chat + health + events" active={p.active} onNav={p.onNav} />
+      <Item k="rooms" label="Rooms" sub="SQLite rooms Item k="ops" messages" active={p.active} onNav={p.onNav} />
+      <Item k="termux" label="Termux-like" sub="Console UI stub" active={p.active} onNav={p.onNav} />
       <Item k="ops" label="Ops" sub="Git/Deploy hooks (stubs)" active={p.active} onNav={p.onNav} />
       <Item k="about" label="About" sub="Build & paths" active={p.active} onNav={p.onNav} />
 
