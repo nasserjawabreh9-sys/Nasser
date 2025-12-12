@@ -67,6 +67,7 @@ remote_url="$(git remote get-url origin)"
 if [ -n "${GITHUB_TOKEN:-}" ]; then
   token_url="$(echo "$remote_url" | sed -E "s#^https://#https://x-access-token:${GITHUB_TOKEN}@#")"
   GIT_ASKPASS=true git push "$token_url" HEAD:main
+GIT_ASKPASS=true git push "$token_url" --tags || true
 else
   git push origin main
 fi

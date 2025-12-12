@@ -1,0 +1,363 @@
+{
+  "generated_utc": "2025-12-12T04:55:35Z",
+  "events_total": 50,
+  "pipelines": [
+    {
+      "mode": "PROD",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "last_ts": "2025-12-12T04:39:16Z",
+      "failed": 0,
+      "succeeded": 2
+    },
+    {
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "last_ts": "2025-12-12T04:38:09Z",
+      "failed": 0,
+      "succeeded": 2
+    },
+    {
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "last_ts": "2025-12-12T04:39:02Z",
+      "failed": 0,
+      "succeeded": 2
+    },
+    {
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "last_ts": "2025-12-12T04:38:37Z",
+      "failed": 0,
+      "succeeded": 3
+    },
+    {
+      "mode": "TRIAL-2",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "last_ts": "2025-12-12T02:51:46Z",
+      "failed": 0,
+      "succeeded": 2
+    }
+  ],
+  "tail": [
+    {
+      "ts": "2025-12-12T02:22:10Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 1,
+      "step_name": "start_backend_bg",
+      "status": "started",
+      "cmd": "bash -lc 'cd backend && source .venv/bin/activate && (nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 > ../station_logs/backend.log 2>&1 & echo $! > ../station_meta/dynamo/backend.pid)'"
+    },
+    {
+      "ts": "2025-12-12T02:22:10Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 1,
+      "step_name": "start_backend_bg",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "edb3bcbab52c99ea1760cd232a0a03f71d1d32182f5ea86698677e273b3410ec"
+    },
+    {
+      "ts": "2025-12-12T02:22:10Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 2,
+      "step_name": "health",
+      "status": "started",
+      "cmd": "bash -lc 'curl -sS http://127.0.0.1:8000/health | cat'"
+    },
+    {
+      "ts": "2025-12-12T02:22:10Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 2,
+      "step_name": "health",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "af0b6020e39dd10355a50e28a7532b9315ec0b6dd0396cf21db1ac86b1be50fb"
+    },
+    {
+      "ts": "2025-12-12T02:26:18Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_update.sh"
+    },
+    {
+      "ts": "2025-12-12T02:26:19Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "41a8db0532a4fb84220e0b4e851ed00b5216eab6f03926917f2d3a9bd5e85f18"
+    },
+    {
+      "ts": "2025-12-12T02:26:19Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_broadcast.sh"
+    },
+    {
+      "ts": "2025-12-12T02:26:19Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "4822e9b38aef46aa5de5ca6d7f8dbbf965442de4f7c5933e0e88a7cc01584cc3"
+    },
+    {
+      "ts": "2025-12-12T02:51:46Z",
+      "mode": "TRIAL-2",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_update.sh"
+    },
+    {
+      "ts": "2025-12-12T02:51:46Z",
+      "mode": "TRIAL-2",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "41a8db0532a4fb84220e0b4e851ed00b5216eab6f03926917f2d3a9bd5e85f18"
+    },
+    {
+      "ts": "2025-12-12T02:51:46Z",
+      "mode": "TRIAL-2",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_broadcast.sh"
+    },
+    {
+      "ts": "2025-12-12T02:51:46Z",
+      "mode": "TRIAL-2",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "ffdb608e3b5cbc353019a9d14786e5b2363dce4988ad5ec5522c140f53e0f488"
+    },
+    {
+      "ts": "2025-12-12T04:38:08Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_update.sh"
+    },
+    {
+      "ts": "2025-12-12T04:38:09Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "41a8db0532a4fb84220e0b4e851ed00b5216eab6f03926917f2d3a9bd5e85f18"
+    },
+    {
+      "ts": "2025-12-12T04:38:09Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_broadcast.sh"
+    },
+    {
+      "ts": "2025-12-12T04:38:09Z",
+      "mode": "TRIAL-1",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "0b3b6525c657d4598b1309731d6ed549a122352b2d89fab399e1b3073fd54613"
+    },
+    {
+      "ts": "2025-12-12T04:38:30Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "step_index": 1,
+      "step_name": "venv_create",
+      "status": "started",
+      "cmd": "bash -lc 'cd backend && python -m venv .venv'"
+    },
+    {
+      "ts": "2025-12-12T04:38:35Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "step_index": 1,
+      "step_name": "venv_create",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ts": "2025-12-12T04:38:35Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "step_index": 2,
+      "step_name": "pip_upgrade",
+      "status": "started",
+      "cmd": "bash -lc 'cd backend && source .venv/bin/activate && pip install --upgrade pip'"
+    },
+    {
+      "ts": "2025-12-12T04:38:36Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "step_index": 2,
+      "step_name": "pip_upgrade",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "908192b6db11c1d6223cbf7f8ac487bd1d19dd9702a2f482d260e3b5583e2154"
+    },
+    {
+      "ts": "2025-12-12T04:38:36Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "step_index": 3,
+      "step_name": "pip_install",
+      "status": "started",
+      "cmd": "bash -lc 'cd backend && source .venv/bin/activate && pip install -r requirements.txt'"
+    },
+    {
+      "ts": "2025-12-12T04:38:37Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "termux_env_prepare_backend",
+      "step_index": 3,
+      "step_name": "pip_install",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "a04558554a8e141626b8fe0e5d7881f753e37596765d6e96fed24c2e6a0a1dc5"
+    },
+    {
+      "ts": "2025-12-12T04:39:02Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 1,
+      "step_name": "start_backend_bg",
+      "status": "started",
+      "cmd": "bash -lc 'cd backend && source .venv/bin/activate && (nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 > ../station_logs/backend.log 2>&1 & echo $! > ../station_meta/dynamo/backend.pid)'"
+    },
+    {
+      "ts": "2025-12-12T04:39:02Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 1,
+      "step_name": "start_backend_bg",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "ts": "2025-12-12T04:39:02Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 2,
+      "step_name": "health",
+      "status": "started",
+      "cmd": "bash -lc 'curl -sS http://127.0.0.1:8000/health | cat'"
+    },
+    {
+      "ts": "2025-12-12T04:39:02Z",
+      "mode": "TRIAL-1",
+      "root_id": 2000,
+      "pipeline": "backend_health_check",
+      "step_index": 2,
+      "step_name": "health",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "af9e9218ea4b66525ec26b36de1be719f3e93ec399764644ef77181861d2d305"
+    },
+    {
+      "ts": "2025-12-12T04:39:15Z",
+      "mode": "PROD",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_update.sh"
+    },
+    {
+      "ts": "2025-12-12T04:39:16Z",
+      "mode": "PROD",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 1,
+      "step_name": "tree_update",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "41a8db0532a4fb84220e0b4e851ed00b5216eab6f03926917f2d3a9bd5e85f18"
+    },
+    {
+      "ts": "2025-12-12T04:39:16Z",
+      "mode": "PROD",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "started",
+      "cmd": "bash scripts/tree_authority/tree_broadcast.sh"
+    },
+    {
+      "ts": "2025-12-12T04:39:16Z",
+      "mode": "PROD",
+      "root_id": 1000,
+      "pipeline": "bootstrap_validate",
+      "step_index": 2,
+      "step_name": "broadcast",
+      "status": "succeeded",
+      "rc": 0,
+      "out_sha256": "aead6ca97ab107cc9365bb92ba660249aca598dd053269ecdd0b8a072ac8bbe1"
+    }
+  ]
+}

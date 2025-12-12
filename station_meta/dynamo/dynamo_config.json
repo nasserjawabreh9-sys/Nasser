@@ -46,6 +46,28 @@
         "name": "health",
         "cmd": "bash -lc 'curl -sS http://127.0.0.1:8000/health | cat'"
       }
+    ],
+    "frontend_build_check": [
+      {
+        "name": "frontend_sanity",
+        "cmd": "bash -lc 'test -f frontend/package.json && echo FRONTEND_OK'"
+      },
+      {
+        "name": "api_client_sanity",
+        "cmd": "bash -lc 'test -f frontend/src/api/station_api.ts && echo API_CLIENT_OK'"
+      }
+    ],
+    "stage_only": [
+      {
+        "name": "noop",
+        "cmd": "bash -lc \"echo STAGE_ONLY\""
+      }
+    ],
+    "status_snapshot": [
+      {
+        "name": "snapshot",
+        "cmd": "python scripts/ops/status_snapshot.py"
+      }
     ]
   },
   "preflight": "bash scripts/ops/run_guards.sh"

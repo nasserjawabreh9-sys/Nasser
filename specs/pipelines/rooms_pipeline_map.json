@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "generated_utc": "2025-12-12T04:55:34Z",
+  "rooms": {
+    "R1": { "locks": ["tree","bindings"], "pipelines": ["bootstrap_validate"] },
+    "R2": { "locks": ["env"],           "pipelines": ["termux_env_prepare_backend"] },
+    "R3": { "locks": ["bindings"],      "pipelines": ["backend_health_check"] },
+    "R4": { "locks": ["bindings"],      "pipelines": ["frontend_build_check"] },
+    "R5": { "locks": ["stage"],         "pipelines": ["stage_only"] }
+  },
+  "policy": {
+    "stop_the_world_on_guard_fail": true,
+    "single_writer_locks": true,
+    "stage_every_root": true
+  }
+}
