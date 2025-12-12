@@ -1,0 +1,9 @@
+{
+  "room": "R5",
+  "name": "Ops & GitHub",
+  "writes": ["scripts/ops/**", ".git/**"],
+  "locks_required": ["stage"],
+  "inputs": ["root_id", "commit_policy"],
+  "outputs": ["commit", "push", "optional_tag"],
+  "stop_the_world_on_fail": true
+}

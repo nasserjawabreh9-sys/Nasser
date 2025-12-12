@@ -1,0 +1,9 @@
+{
+  "room": "R4",
+  "name": "Frontend Room",
+  "writes": ["frontend/**"],
+  "locks_required": ["bindings"],
+  "inputs": ["uui_spec", "bindings.json"],
+  "outputs": ["ui_routes", "frontend_report.json"],
+  "stop_the_world_on_fail": true
+}

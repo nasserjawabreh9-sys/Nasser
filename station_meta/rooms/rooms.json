@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "generated_utc": "2025-12-12T04:48:32Z",
+  "rooms": [
+    {"id":"R1","name":"Tree & Bindings Authority","contract":"specs/rooms_contracts/R1_tree_authority.json","locks":["tree","bindings"]},
+    {"id":"R2","name":"Env & Deps","contract":"specs/rooms_contracts/R2_env_deps.json","locks":["env"]},
+    {"id":"R3","name":"Backend","contract":"specs/rooms_contracts/R3_backend.json","locks":["bindings"]},
+    {"id":"R4","name":"Frontend","contract":"specs/rooms_contracts/R4_frontend.json","locks":["bindings"]},
+    {"id":"R5","name":"Ops & GitHub","contract":"specs/rooms_contracts/R5_ops_github.json","locks":["stage"]}
+  ]
+}

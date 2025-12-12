@@ -1,0 +1,11 @@
+{
+  "pipeline": "P1100_architecture",
+  "root_id": 1100,
+  "generated_utc": "2025-12-12T04:48:32Z",
+  "steps": [
+    {"name":"tree_update","cmd":"bash scripts/tree_authority/tree_update.sh"},
+    {"name":"tree_broadcast","cmd":"bash scripts/tree_authority/tree_broadcast.sh"},
+    {"name":"guards_tree","cmd":"bash scripts/guards/tree_guard.sh"},
+    {"name":"guards_bindings","cmd":"bash scripts/guards/binding_guard.sh"}
+  ]
+}

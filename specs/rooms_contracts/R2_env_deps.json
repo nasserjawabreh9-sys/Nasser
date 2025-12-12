@@ -1,0 +1,9 @@
+{
+  "room": "R2",
+  "name": "Env & Deps",
+  "writes": ["station_meta/env/*", "backend/.venv/**"],
+  "locks_required": ["env"],
+  "inputs": ["requirements.txt", "termux_constraints"],
+  "outputs": ["env_report.json"],
+  "stop_the_world_on_fail": true
+}

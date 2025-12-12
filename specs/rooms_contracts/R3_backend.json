@@ -1,0 +1,9 @@
+{
+  "room": "R3",
+  "name": "Backend Room",
+  "writes": ["backend/**"],
+  "locks_required": ["bindings"],
+  "inputs": ["api_spec", "bindings.json"],
+  "outputs": ["api_endpoints", "backend_report.json"],
+  "stop_the_world_on_fail": true
+}

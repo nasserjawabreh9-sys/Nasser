@@ -1,0 +1,9 @@
+{
+  "room": "R1",
+  "name": "Tree & Bindings Authority",
+  "writes": ["station_meta/tree/*", "station_meta/bindings/*"],
+  "locks_required": ["tree", "bindings"],
+  "inputs": ["repo_fs_snapshot"],
+  "outputs": ["tree_paths.txt", "bindings.json", "broadcast.txt"],
+  "stop_the_world_on_fail": true
+}
