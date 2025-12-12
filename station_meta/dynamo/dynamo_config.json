@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "modes": ["TRIAL-1", "TRIAL-2", "TRIAL-3", "PROD"],
+  "default_root_id": 1000,
+  "event_log": "station_meta/dynamo/events.jsonl",
+  "lock_dir": "station_meta/locks",
+  "queue_file": "station_meta/queue/tasks.jsonl",
+  "stage_reports_dir": "station_meta/stage_reports",
+  "lease_seconds": 120,
+  "pipelines": {
+    "bootstrap_validate": [
+      {"name": "tree_update", "cmd": "bash scripts/tree_authority/tree_update.sh"},
+      {"name": "broadcast", "cmd": "bash scripts/tree_authority/tree_broadcast.sh"}
+    ],
+    "termux_env_prepare_backend": [
+      {"name": "venv_create", "cmd": "bash -lc 'cd backend && python -m venv .venv'"},
+      {"name": "pip_upgrade", "cmd": "bash -lc 'cd backend && source .venv/bin/activate && pip install --upgrade pip'"},
+      {"name": "pip_install", "cmd": "bash -lc 'cd backend && source .venv/bin/activate && pip install -r requirements.txt'"}
+    ],
+    "backend_health_check": [
+      {"name": "start_backend_bg", "cmd": "bash -lc 'cd backend && source .venv/bin/activate && (nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 > ../station_logs/backend.log 2>&1 & echo $! > ../station_meta/dynamo/backend.pid)'"},
+      {"name": "health", "cmd": "bash -lc 'curl -sS http://127.0.0.1:8000/health | cat'"}
+    ]
+  }
+}

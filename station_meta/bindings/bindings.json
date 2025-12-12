@@ -1,0 +1,6 @@
+{
+  "version": "0.1.0",
+  "notes": "bindings snapshot placeholder",
+  "backend": {"port": 8000, "health": "/health"},
+  "frontend": {"dev_port": 5173}
+}

@@ -1,0 +1,8 @@
+{
+  "ts": "2025-12-12T02:22:09Z",
+  "mode": "TRIAL-1",
+  "root_id": 2000,
+  "pipeline": "termux_env_prepare_backend",
+  "stage_commit_rc": 127,
+  "stage_commit_out_tail": "bash: scripts/ops/stage_commit_push.sh: No such file or directory\n"
+}
