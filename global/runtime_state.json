@@ -1,0 +1,14 @@
+{
+  "time": null,
+  "rooms": {},
+  "dynamo": {
+    "tick": 0,
+    "last_tick": null,
+    "alerts": []
+  },
+  "loops": {
+    "loop4": {"status": "unknown"},
+    "loop5": {"status": "unknown"},
+    "loop6": {"status": "unknown"}
+  }
+}

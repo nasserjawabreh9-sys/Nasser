@@ -1,0 +1,27 @@
+{
+  "env_matrix":"station_env_matrix_v2",
+  "termux":{
+    "python":">=3.11",
+    "node":">=18",
+    "notes":[
+      "UTF-8 enforced",
+      "avoid heavy native builds when possible",
+      "ports: backend 8000, frontend 5173"
+    ],
+    "required_commands":["bash","python","pip","node","npm","git","curl"]
+  },
+  "github":{
+    "branch":"main",
+    "flow":"termux -> git push -> render auto deploy",
+    "notes":["origin must be set once","token stored in UI/ENV only"]
+  },
+  "render":{
+    "mode":"auto-deploy-from-github",
+    "notes":["render dashboard controls build/start","no hardcoded render token in code"]
+  },
+  "android":{
+    "device":"mobile",
+    "channels":["text","mic","camera","video"],
+    "notes":["UI is command center; heavy work happens in Termux workers"]
+  }
+}

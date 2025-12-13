@@ -1,0 +1,13 @@
+{
+  "version": "GLOBAL_V1",
+  "deliverables": [
+    "G-001 Identity",
+    "G-010 Tree",
+    "G-020 Guards",
+    "G-030 Rooms",
+    "G-040 Dynamo",
+    "G-050 Loops 4/5/6",
+    "G-060 Ops API",
+    "G-090 Smoke/Release"
+  ]
+}

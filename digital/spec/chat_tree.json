@@ -1,0 +1,13 @@
+{
+  "tree":"station_chat_tree_v2",
+  "root":"menu",
+  "menus":{
+    "menu":["factory","loop","rooms","keys","ops","status"],
+    "factory":["run","status","logs"],
+    "loop":["loop4_runner","loop5_github","loop6_render"],
+    "rooms":["core","backend","frontend","tests","git_pipeline","render_deploy"],
+    "keys":["openai","github","render","tts","hooks","ocr","whatsapp","email"],
+    "ops":["git_status","git_push","render_deploy_hint"],
+    "status":["health","info","version","logs"]
+  }
+}

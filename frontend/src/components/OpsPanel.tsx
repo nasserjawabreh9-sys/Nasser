@@ -32,6 +32,36 @@ export default function OpsPanel(p: Props) {
   }
 
   return (
+    <>
+      <div style={{ padding: 12, border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, marginBottom: 12 }}>
+        <div style={{ fontWeight: 700, marginBottom: 8 }}>Ops</div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button onClick={async () => {
+            const base = (p.keys.backendUrl || "").trim();
+            const url = (base || "").replace(/\/$/, "") + "/ops/git/status";
+            const res = await postJSON(url, {}, p.keys.editKey || "");
+            setOut(JSON.stringify(res, null, 2));
+          }}>Git Status (Backend)</button>
+          <button onClick={async () => {
+            const base = (p.keys.backendUrl || "").trim();
+            const url = (base || "").replace(/\/$/, "") + "/ops/git/push";
+            const res = await postJSON(url, {}, p.keys.editKey || "");
+            setOut(JSON.stringify(res, null, 2));
+          }}>Stage + Commit + Push (Backend)</button>
+          <button onClick={async () => {
+            const base = (p.keys.backendUrl || "").trim();
+            const url = (base || "").replace(/\/$/, "") + "/ops/render/deploy";
+            const res = await postJSON(url, {
+              render_api_key: p.keys.renderApiKey || "",
+              render_service_id: p.keys.renderServiceId || "",
+            }, p.keys.editKey || "");
+            setOut(JSON.stringify(res, null, 2));
+          }}>Trigger Render Deploy</button>
+        </div>
+        <div style={{ opacity: 0.7, marginTop: 8, fontSize: 12 }}>
+          Uses backend ops endpoints. Requires Edit Mode Key.
+        </div>
+      </div>
     <div className="panel" style={{ height: "100%" }}>
       <div className="panelHeader">
         <h3>Ops Console</h3>
@@ -48,5 +78,24 @@ export default function OpsPanel(p: Props) {
 {out}
       </pre>
     </div>
+    </>
   );
 }
+
+
+
+// --- Station Ops helpers (auto-added) ---
+async function postJSON(url: string, body: any, editKey: string) {
+  const r = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-edit-key": editKey || "",
+    },
+    body: JSON.stringify(body || {}),
+  });
+  const t = await r.text();
+  try { return { ok: r.ok, status: r.status, json: JSON.parse(t) }; }
+  catch { return { ok: r.ok, status: r.status, text: t }; }
+}
+

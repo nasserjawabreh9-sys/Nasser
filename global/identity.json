@@ -1,0 +1,16 @@
+{
+  "product": "station",
+  "method": "GLOBAL_DIGITAL_FACTORY_V1",
+  "runtime": {
+    "env": "termux",
+    "backend_port": 8000,
+    "frontend_port": 5173
+  },
+  "security": {
+    "edit_key_header": "x-edit-key",
+    "edit_key_env": "EDIT_MODE_KEY",
+    "locks": true
+  },
+  "loops": ["loop4_runtime", "loop5_agent_runner", "loop6_publish"],
+  "rooms": ["core", "backend", "frontend", "ops", "agent", "qa", "release"]
+}

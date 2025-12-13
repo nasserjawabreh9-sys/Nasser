@@ -1,0 +1,25 @@
+{
+  "root": "station_root",
+  "paths": {
+    "backend": "backend",
+    "frontend": "frontend",
+    "global": "global",
+    "logs": "station_logs"
+  },
+  "backend": {
+    "entry": "backend/main.py",
+    "modules": [
+      "backend/global_ops.py",
+      "backend/global_rooms.py",
+      "backend/global_dynamo.py",
+      "backend/global_guards.py"
+    ]
+  },
+  "scripts": [
+    "station_runner_loop.sh",
+    "global/loop5_agent_runner.sh",
+    "global/loop6_publish.sh",
+    "global/smoke.sh",
+    "global/release.sh"
+  ]
+}

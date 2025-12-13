@@ -1,0 +1,19 @@
+{
+  "system":"station",
+  "layer":"UUL-EXTRA",
+  "pack":"digital_factory_v2",
+  "identity":{
+    "owner":"Nasser Jawabreh",
+    "signature":"operational_signature_v1",
+    "policy":"digital-first / no-drift / rooms+dynamo+loop"
+  },
+  "edit_mode":{
+    "header":"x-edit-key",
+    "default_hint":"1234"
+  },
+  "keys_policy":{
+    "never_embed_real_keys_in_code":true,
+    "allowed_storage":["browser_localStorage","station_env.sh (quoted exports)"],
+    "preferred":"UI -> Save Keys -> backend"
+  }
+}
