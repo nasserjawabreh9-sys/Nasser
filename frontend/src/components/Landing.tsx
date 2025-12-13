@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { playChime } from "./sound";
-import { KeysState } from "./storage";
+import type { KeysState } from "./storage";
 
 type Props = {
   keys: KeysState;

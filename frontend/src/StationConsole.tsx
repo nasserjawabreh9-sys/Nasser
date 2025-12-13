@@ -1,8 +1,6 @@
-import RoomsPanel from "./components/rooms/RoomsPanel";
-import TermuxPanel from "./components/termux/TermuxPanel";
-
 import { useMemo, useState } from "react";
-import SideBar, { NavKey } from "./components/SideBar";
+import SideBar from "./components/SideBar";
+import type { NavKey } from "./components/SideBar";
 import TopBar from "./components/TopBar";
 import Landing from "./components/Landing";
 import Dashboard from "./components/Dashboard";
@@ -10,7 +8,8 @@ import SettingsModal from "./components/SettingsModal";
 import OpsPanel from "./components/OpsPanel";
 import AboutPanel from "./components/AboutPanel";
 import { jpost } from "./components/api";
-import { KeysState, loadKeysSafe, saveKeysSafe } from "./components/storage";
+import type { KeysState } from "./components/storage";
+import { loadKeysSafe, saveKeysSafe } from "./components/storage";
 
 type Strip = { id: string; title: string; desc: string; action: "settings" | "noop" };
 

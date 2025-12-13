@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { KeysState } from "./storage";
+import type { KeysState } from "./storage";
 import { jpost } from "./api";
 
 type Props = { keys: KeysState };

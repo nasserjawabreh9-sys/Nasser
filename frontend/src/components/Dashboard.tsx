@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { API_BASE, jget, jpost } from "./api";
-import { KeysState } from "./storage";
+import type { KeysState } from "./storage";
 
 type Props = {
   keys: KeysState;
@@ -8,7 +8,7 @@ type Props = {
   clearSignal: number;
 };
 
-type ChatItem = { role: "user" | "system"; text: string; ts: number };
+type ChatItem = { role: string; text: string; ts: number };
 
 export default function Dashboard(p: Props) {
   const [health, setHealth] = useState<any>(null);

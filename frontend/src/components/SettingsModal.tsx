@@ -1,4 +1,4 @@
-import { KeysState } from "./storage";
+import type { KeysState } from "./storage";
 
 type Props = {
   open: boolean;
